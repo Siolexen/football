@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Http/Requests/User/RegisterPostRequest.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1665563882198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1665563882198,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Requests\\User;\n\nuse Illuminate\\Foundation\\Http\\FormRequest;\nuse Illuminate\\Validation\\Rules\\Password as RulesPassword;\n\nclass RegisterPostRequest extends FormRequest\n{\n    /**\n     * Get the validation rules that apply to the request.\n     *\n     * @return array\n     */\n    public function rules()\n    {\n        return [\n            'email' => 'required|email|max:255',\n            'name' => 'string|min:3|max:15',\n            'password' => ['confirmed', RulesPassword::defaults()],\n        ];\n    }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{
+    "sourceFile": "database/migrations/2022_10_11_193338_create_posts_table.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1665517200653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665517208758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n         Schema::create('posts', function (Blueprint $table) {\n             $table->id();\n             $table->string('name');\n             $table->string('slug');\n+            $table->longText('body');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1665517218997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n             $table->id();\n             $table->string('name');\n             $table->string('slug');\n             $table->longText('body');\n+            $table->unsignedBigInteger('event_id');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1665517230949,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,10 +17,12 @@\n             $table->id();\n             $table->string('name');\n             $table->string('slug');\n             $table->longText('body');\n-            $table->unsignedBigInteger('event_id');\n+            $table->unsignedBigInteger('author');\n             $table->timestamps();\n+\n+            $table->foreign('event_id')->references('id')->on('events');\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1665517239406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,12 +17,12 @@\n             $table->id();\n             $table->string('name');\n             $table->string('slug');\n             $table->longText('body');\n-            $table->unsignedBigInteger('author');\n+            $table->unsignedBigInteger('user_id');\n             $table->timestamps();\n \n-            $table->foreign('event_id')->references('id')->on('events');\n+            $table->foreign('user_id')->references('id')->on('events');\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1665517254200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,15 +14,15 @@\n     public function up()\n     {\n         Schema::create('posts', function (Blueprint $table) {\n             $table->id();\n-            $table->string('name');\n+            $table->string('title');\n             $table->string('slug');\n             $table->longText('body');\n             $table->unsignedBigInteger('user_id');\n             $table->timestamps();\n \n-            $table->foreign('user_id')->references('id')->on('events');\n+            $table->foreign('user_id')->references('id')->on('users');\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1665517264847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n             $table->id();\n             $table->string('title');\n             $table->string('slug');\n             $table->longText('body');\n+            $table->longText('body');\n             $table->unsignedBigInteger('user_id');\n             $table->timestamps();\n \n             $table->foreign('user_id')->references('id')->on('users');\n"
+                },
+                {
+                    "date": 1665517271658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->id();\n             $table->string('title');\n             $table->string('slug');\n             $table->longText('body');\n-            $table->longText('body');\n+            $table->string('cover');\n             $table->unsignedBigInteger('user_id');\n             $table->timestamps();\n \n             $table->foreign('user_id')->references('id')->on('users');\n"
+                }
+            ],
+            "date": 1665517200653,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('posts', function (Blueprint $table) {\n            $table->id();\n            $table->string('name');\n            $table->string('slug');\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('posts');\n    }\n};\n"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "sourceFile": "app/Services/User/UserVerifyService.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1665562285498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665562293229,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n      *\n      * @return array\n      *\n      */\n-    public function verifyUser(array $credentials, User $user, VerifyCodeType $returnedVerifyCode = null): array\n+    public function verifyUser(array $credentials, User $use): array\n     {\n         $response = [];\n         if (!$this->verifyWithUserCredentials($credentials, $user)) {\n             $response['verify'] = false;\n"
+                },
+                {
+                    "date": 1665562307343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,19 +26,13 @@\n      *\n      * @return array\n      *\n      */\n-    public function verifyUser(array $credentials, User $use): array\n+    public function verifyUser(array $credentials, User $user): array\n     {\n         $response = [];\n         if (!$this->verifyWithUserCredentials($credentials, $user)) {\n             $response['verify'] = false;\n-        } else {\n-            $response['verify'] = true;\n-            if (!is_null($returnedVerifyCode)) {\n-                $verifyCode = $this->verifyCodeService->create($user, $returnedVerifyCode);\n-                $response['code'] = $verifyCode->code;\n-            }\n         }\n \n         return $response;\n     }\n"
+                },
+                {
+                    "date": 1665562315151,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,9 @@\n use Illuminate\\Support\\Facades\\Hash;\n \n class UserVerifyService\n {\n-    private $verifyCodeService;\n \n-    public function __construct()\n-    {\n-        $this->verifyCodeService = new VerifyCodeService;\n-    }\n \n     /**\n      * Verify User with array of credentials and create new VerifyCode if necessery.\n      *\n"
+                },
+                {
+                    "date": 1665562321388,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,16 +9,13 @@\n use Illuminate\\Support\\Facades\\Hash;\n \n class UserVerifyService\n {\n-\n-\n     /**\n      * Verify User with array of credentials and create new VerifyCode if necessery.\n      *\n      * @param array $credentials\n      * @param User $user\n-     * @param VerifyCodeType|null $returnedVerifyCode\n      *\n      * @return array\n      *\n      */\n"
+                },
+                {
+                    "date": 1665562397183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,11 @@\n      */\n     public function verifyUser(array $credentials, User $user): array\n     {\n         $response = [];\n+        if (Hash::check($credentials['password'], $user->password))\n+                    return true;\n+                    \n         if (!$this->verifyWithUserCredentials($credentials, $user)) {\n             $response['verify'] = false;\n         }\n \n"
+                }
+            ],
+            "date": 1665562285498,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Services\\User;\n\nuse App\\Enums\\User\\CredentialType;\nuse App\\Enums\\User\\VerifyCode\\VerifyCodeType;\nuse App\\Models\\User;\nuse App\\Services\\User\\VerifyCode\\VerifyCodeService;\nuse Illuminate\\Support\\Facades\\Hash;\n\nclass UserVerifyService\n{\n    private $verifyCodeService;\n\n    public function __construct()\n    {\n        $this->verifyCodeService = new VerifyCodeService;\n    }\n\n    /**\n     * Verify User with array of credentials and create new VerifyCode if necessery.\n     *\n     * @param array $credentials\n     * @param User $user\n     * @param VerifyCodeType|null $returnedVerifyCode\n     *\n     * @return array\n     *\n     */\n    public function verifyUser(array $credentials, User $user, VerifyCodeType $returnedVerifyCode = null): array\n    {\n        $response = [];\n        if (!$this->verifyWithUserCredentials($credentials, $user)) {\n            $response['verify'] = false;\n        } else {\n            $response['verify'] = true;\n            if (!is_null($returnedVerifyCode)) {\n                $verifyCode = $this->verifyCodeService->create($user, $returnedVerifyCode);\n                $response['code'] = $verifyCode->code;\n            }\n        }\n\n        return $response;\n    }\n\n    /**\n     * Verify User with array of credentials.\n     *\n     * @param array $credentials\n     * @param User $user\n     *\n     * @return bool\n     *\n     */\n    public function verifyWithUserCredentials(array $credentials, User $user): bool\n    {\n        /** \n         * Password or verifyCode is required to verify.\n         */\n        if (array_key_exists('password', $credentials) || array_key_exists('code', $credentials)) {\n            /**\n             * First check is possibility to verify with password\n             */\n            if (isset($credentials['password']) && $user->canLoginWithCredentialType(CredentialType::Password)) {\n\n                /**\n                 * Check that the user's passwords match the password from credentials.\n                 */\n                if (Hash::check($credentials['password'], $user->password))\n                    return true;\n            }\n            /**\n             * Second check is possibility to verify with verify code\n             */\n            elseif (isset($credentials['code']) && $user->canLoginWithCredentialType(CredentialType::VerifyCode)) {\n\n                /**\n                 * Check that the code from credentials is valid.\n                 */\n                if ($this->verifyCodeService->isValidCode($user, $credentials['code'], VerifyCodeType::Verify))\n                    return true;\n            }\n        }\n\n        return false;\n    }\n}\n"
+        }
+    ]
+}

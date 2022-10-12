@@ -1,0 +1,38 @@
+{
+    "sourceFile": "app/Requests/User/LoginRequest.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1665561484741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665561502953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,8 @@\n     public function rules()\n     {\n         return [\n             'email'     => 'email|required',\n-            'password'  => 'string|nullable',\n-            'code'      => 'string|min:6|max:6|nullable',\n+            'password'  => 'string|required',\n         ];\n     }\n }\n"
+                },
+                {
+                    "date": 1665563005603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-namespace App\\Http\\Requests\\User\\Login;\n+namespace App\\Http\\Requests\\User;\n \n use Illuminate\\Foundation\\Http\\FormRequest;\n \n class LoginRequest extends FormRequest\n"
+                },
+                {
+                    "date": 1665563191936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n namespace App\\Http\\Requests\\User;\n \n use Illuminate\\Foundation\\Http\\FormRequest;\n-\n+App\\Http\\Requests\\User\\LoginRequest\n class LoginRequest extends FormRequest\n {\n     /**\n      * Get the validation rules that apply to the request.\n"
+                },
+                {
+                    "date": 1665563713049,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n namespace App\\Http\\Requests\\User;\n \n use Illuminate\\Foundation\\Http\\FormRequest;\n-App\\Http\\Requests\\User\\LoginRequest\n+\n class LoginRequest extends FormRequest\n {\n     /**\n      * Get the validation rules that apply to the request.\n"
+                },
+                {
+                    "date": 1665563720576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n namespace App\\Http\\Requests\\User;\n-\n+/home/michal/Project/Rekrutacja/footballteam/footballteam/app/Requests/User/LoginRequest.php\n use Illuminate\\Foundation\\Http\\FormRequest;\n \n class LoginRequest extends FormRequest\n {\n"
+                }
+            ],
+            "date": 1665561484741,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Requests\\User\\Login;\n\nuse Illuminate\\Foundation\\Http\\FormRequest;\n\nclass LoginRequest extends FormRequest\n{\n    /**\n     * Get the validation rules that apply to the request.\n     *\n     * @return array\n     */\n    public function rules()\n    {\n        return [\n            'email'     => 'email|required',\n            'password'  => 'string|nullable',\n            'code'      => 'string|min:6|max:6|nullable',\n        ];\n    }\n}\n"
+        }
+    ]
+}

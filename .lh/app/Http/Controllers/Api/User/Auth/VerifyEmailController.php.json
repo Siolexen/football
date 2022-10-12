@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/Http/Controllers/Api/User/Auth/VerifyEmailController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1665564968322,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665564979936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n-namespace App\\Http\\Controllers\\Api\\v2\\User\\Auth;\n+namespace App\\Http\\Controllers\\Api2\\User\\Auth;\n \n-use App\\Http\\Controllers\\Api\\v2\\BaseController;\n+use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\v2\\User\\Auth\\ResendVerifyEmailRequest;\n use App\\Http\\Requests\\v2\\User\\Auth\\VerifyEmailRequest;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyEmailService;\n@@ -34,5 +34,24 @@\n         }\n \n         return $this->sendResponseCode(200);\n     }\n+\n+    public function verifyEmail(VerifyEmailRequest $request, UserVerifyEmailService $userVerifyEmailService, UserResourceService $userRepositoryService)\n+    {\n+        $user = $userRepositoryService->getNotVerifiedUserByUuid($request->input('userUuid'));\n+\n+        if(!$user){\n+            return $this->sendError(__('error.404'), 404);\n+        }\n+\n+        try {\n+            if(!$userVerifyEmailService->verifyEmail($request->validated(), $user)){\n+                return $this->sendError(__('error.general'), 400);\n+            }\n+        } catch (Exception $e) {\n+            return $this->sendError(__('error.general'), 400);\n+        }\n+\n+        return $this->sendResponseCode();\n+    }\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1665564968322,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers\\Api\\v2\\User\\Auth;\n\nuse App\\Http\\Controllers\\Api\\v2\\BaseController;\nuse App\\Http\\Requests\\v2\\User\\Auth\\ResendVerifyEmailRequest;\nuse App\\Http\\Requests\\v2\\User\\Auth\\VerifyEmailRequest;\nuse App\\Services\\User\\UserResourceService;\nuse App\\Services\\User\\UserVerifyEmailService;\nuse Exception;\n\nclass VerifyEmailController extends BaseController\n{\n    /**\n     * @param ResendVerifyEmailRequest $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function resendVerifyEmail(ResendVerifyEmailRequest $request)\n    {\n        $user = $request->user();\n\n        if($user->hasVerifiedEmail()){\n            return $this->sendError(__('mail.your-email-address-is-verified'), 400);\n        }\n\n        if(!$user){\n            return $this->sendError(__('error.404'), 404);\n        }\n\n        try {\n            $user->sendEmailVerificationNotification();\n        } catch (Exception $e) {\n            return $this->sendError(__('error.general'), 400);\n        }\n\n        return $this->sendResponseCode(200);\n    }\n}"
+        }
+    ]
+}

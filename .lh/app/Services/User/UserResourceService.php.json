@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app/Services/User/UserResourceService.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1665561923020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665564941521,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,21 +44,5 @@\n     public function getWithEmail(string $email): User|null\n     {\n         return $this->userRepository->getWithEmail($email);\n     }\n-\n-    /**\n-     * Get possible user credential types.\n-     *\n-     * @param User|null $user\n-     *\n-     * @return array|object\n-     *\n-     */\n-    public function getCredentials(User $user = null): array|object\n-    {\n-        if (is_null($user))\n-            return [CredentialType::default() => true];\n-\n-        return $user->credential_types;\n-    }\n }\n"
+                },
+                {
+                    "date": 1665565320678,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,16 +23,8 @@\n     {\n         return $this->userRepository->getUserByEmail($email);\n     }\n \n-    /**\n-     * @param $userUuid\n-     * @return User|false\n-     */\n-    public function getNotVerifiedUserByUuid($userUuid)\n-    {\n-        return $this->userRepository->getNotVerifiedUserByUuid($userUuid) ?? false;\n-    }\n \n     /**\n      * Get User with email.\n      *\n"
+                },
+                {
+                    "date": 1665565475893,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,19 +22,5 @@\n     public function getUserByEmail(string $email): mixed\n     {\n         return $this->userRepository->getUserByEmail($email);\n     }\n-\n-\n-    /**\n-     * Get User with email.\n-     *\n-     * @param string $email\n-     *\n-     * @return User|null\n-     *\n-     */\n-    public function getWithEmail(string $email): User|null\n-    {\n-        return $this->userRepository->getWithEmail($email);\n-    }\n }\n"
+                }
+            ],
+            "date": 1665561923020,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Services\\User;\n\nuse App\\Enums\\User\\CredentialType;\nuse App\\Models\\User;\nuse App\\Repositories\\User\\UserRepository;\n\nclass UserResourceService\n{\n    private $userRepository;\n\n    public function __construct()\n    {\n        $this->userRepository = new UserRepository;\n    }\n\n    /**\n     * @param string $email\n     * @return array|mixed\n     */\n    public function getUserByEmail(string $email): mixed\n    {\n        return $this->userRepository->getUserByEmail($email);\n    }\n\n    /**\n     * @param $userUuid\n     * @return User|false\n     */\n    public function getNotVerifiedUserByUuid($userUuid)\n    {\n        return $this->userRepository->getNotVerifiedUserByUuid($userUuid) ?? false;\n    }\n\n    /**\n     * Get User with email.\n     *\n     * @param string $email\n     *\n     * @return User|null\n     *\n     */\n    public function getWithEmail(string $email): User|null\n    {\n        return $this->userRepository->getWithEmail($email);\n    }\n\n    /**\n     * Get possible user credential types.\n     *\n     * @param User|null $user\n     *\n     * @return array|object\n     *\n     */\n    public function getCredentials(User $user = null): array|object\n    {\n        if (is_null($user))\n            return [CredentialType::default() => true];\n\n        return $user->credential_types;\n    }\n}\n"
+        }
+    ]
+}

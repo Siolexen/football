@@ -1,0 +1,82 @@
+{
+    "sourceFile": "app/Services/User/UserRegisterService.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 16,
+            "patches": [
+                {
+                    "date": 1665563932055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665564497194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,8 +25,9 @@\n      */\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n+        \n         event(new Registered($user));\n         return $user;\n     }\n }\n"
+                },
+                {
+                    "date": 1665564512190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,11 @@\n      */\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n+\n         \n+\n         event(new Registered($user));\n         return $user;\n     }\n }\n"
+                },
+                {
+                    "date": 1665564519542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n \n-        \n+        $user->roles\n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665564528145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n \n-        $user->roles\n+        $user->roles()->\n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665564587717,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,8 +27,11 @@\n     {\n         $user = $this->userRepository->create($data);\n \n         $user->roles()->\n+        $roles = $mailing->settings->role ?? null;\n+        if (is_array($roles))\n+            $mailing->roles()->attach($roles);\n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665564593361,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,10 +28,10 @@\n         $user = $this->userRepository->create($data);\n \n         $user->roles()->\n         $roles = $mailing->settings->role ?? null;\n-        if (is_array($roles))\n-            $mailing->roles()->attach($roles);\n+        if (is_array($roles\n+        $user->roles()->attach($roles);\n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665564599484,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,11 +26,10 @@\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n \n-        $user->roles()->\n-        $roles = $mailing->settings->role ?? null;\n-        if (is_array($roles\n+        $roles = Role;\n+   \n         $user->roles()->attach($roles);\n \n         event(new Registered($user));\n         return $user;\n"
+                },
+                {
+                    "date": 1665564605644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n \n-        $roles = Role;\n+        $roles = Role::find(1);\n    \n         $user->roles()->attach($roles);\n \n         event(new Registered($user));\n"
+                },
+                {
+                    "date": 1665564630141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Services\\User;\n \n+use App\\Models\\Role;\n use App\\Models\\User;\n use Illuminate\\Auth\\Events\\Registered;\n use App\\Repositories\\User\\UserRepository;\n \n"
+                },
+                {
+                    "date": 1665564638350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,11 +27,10 @@\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n \n-        $roles = Role::find(1);\n-   \n-        $user->roles()->attach($roles);\n+        $role = Role::find(1);\n+        $user->roles()->attach($role);\n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665564643408,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n     {\n         $user = $this->userRepository->create($data);\n \n         $role = Role::find(1);\n-        $user->roles()->attach($role);\n+        $user->roles()->attach($role); //todo\n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665566412829,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,10 +27,9 @@\n     public function register(array $data): User\n     {\n         $user = $this->userRepository->create($data);\n \n-        $role = Role::find(1);\n-        $user->roles()->attach($role); //todo\n+   \n \n         event(new Registered($user));\n         return $user;\n     }\n"
+                },
+                {
+                    "date": 1665566418324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,8 +25,11 @@\n      *\n      */\n     public function register(array $data): User\n     {\n+        $role = Role::find(1);\n+        $data\n+        $user->roles()->attach($role); //todo\n         $user = $this->userRepository->create($data);\n \n    \n \n"
+                },
+                {
+                    "date": 1665566424080,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n      */\n     public function register(array $data): User\n     {\n         $role = Role::find(1);\n-        $data\n+        $data['role_id']\n         $user->roles()->attach($role); //todo\n         $user = $this->userRepository->create($data);\n \n    \n"
+                },
+                {
+                    "date": 1665566429955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,10 +26,9 @@\n      */\n     public function register(array $data): User\n     {\n         $role = Role::find(1);\n-        $data['role_id']\n-        $user->roles()->attach($role); //todo\n+        $data['role_id'] = $role->id;\n         $user = $this->userRepository->create($data);\n \n    \n \n"
+                },
+                {
+                    "date": 1665566438261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,13 +26,12 @@\n      */\n     public function register(array $data): User\n     {\n         $role = Role::find(1);\n-        $data['role_id'] = $role->id;\n+        $data['role_id'] = $role->id; //todo\n+\n         $user = $this->userRepository->create($data);\n \n-   \n-\n         event(new Registered($user));\n         return $user;\n     }\n }\n"
+                }
+            ],
+            "date": 1665563932055,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Services\\User;\n\nuse App\\Models\\User;\nuse Illuminate\\Auth\\Events\\Registered;\nuse App\\Repositories\\User\\UserRepository;\n\nclass UserRegisterService\n{\n    private $userRepository;\n\n    public function __construct()\n    {\n        $this->userRepository = new UserRepository;\n    }\n\n    /**\n     * Rgister new User.\n     *\n     * @param mixed $data\n     *\n     * @return User\n     *\n     */\n    public function register(array $data): User\n    {\n        $user = $this->userRepository->create($data);\n        event(new Registered($user));\n        return $user;\n    }\n}\n"
+        }
+    ]
+}

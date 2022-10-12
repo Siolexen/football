@@ -1,0 +1,34 @@
+{
+    "sourceFile": "database/migrations/2022_10_12_091814_update_users_table_add_relation_to_role.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1665566309896,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665566315010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,11 +13,9 @@\n      */\n     public function up()\n     {\n         Schema::table('users', function (Blueprint $table) {\n-            $table->unsignedBigInteger('role_id');\n-            $table->rememberToken();\n-            $table->timestamps();\n+            $table->unsignedBigInteger('role_id')->after;\n \n             $table->foreign('role_id')->references('id')->on('roles');\n         });\n     }\n"
+                },
+                {
+                    "date": 1665566323741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function up()\n     {\n         Schema::table('users', function (Blueprint $table) {\n-            $table->unsignedBigInteger('role_id')->after;\n+            $table->unsignedBigInteger('role_id')->after();\n \n             $table->foreign('role_id')->references('id')->on('roles');\n         });\n     }\n"
+                },
+                {
+                    "date": 1665566331697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function up()\n     {\n         Schema::table('users', function (Blueprint $table) {\n-            $table->unsignedBigInteger('role_id')->after();\n+            $table->unsignedBigInteger('role_id')->after('password');\n \n             $table->foreign('role_id')->references('id')->on('roles');\n         });\n     }\n@@ -27,8 +27,8 @@\n      */\n     public function down()\n     {\n         Schema::table('users', function (Blueprint $table) {\n-            //\n+            $ta\n         });\n     }\n };\n"
+                },
+                {
+                    "date": 1665566339462,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,8 +27,8 @@\n      */\n     public function down()\n     {\n         Schema::table('users', function (Blueprint $table) {\n-            $ta\n+            $table->dropColumn('password');\n         });\n     }\n };\n"
+                }
+            ],
+            "date": 1665566309896,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::table('users', function (Blueprint $table) {\n            $table->unsignedBigInteger('role_id');\n            $table->rememberToken();\n            $table->timestamps();\n\n            $table->foreign('role_id')->references('id')->on('roles');\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::table('users', function (Blueprint $table) {\n            //\n        });\n    }\n};\n"
+        }
+    ]
+}

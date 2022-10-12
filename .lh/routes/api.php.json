@@ -1,0 +1,78 @@
+{
+    "sourceFile": "routes/api.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1665561221340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665562762518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <?php\n \n+use App\\Http\\Controllers\\Api\\v2\\User\\Login\\UserLoginController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n"
+                },
+                {
+                    "date": 1665562772098,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Http\\Controllers\\Api\\v2\\User\\Login\\UserLoginController;\n+use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n"
+                },
+                {
+                    "date": 1665562784185,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n+use App\\Http\\Controllers\\Api\\User\\UserLoginController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n"
+                },
+                {
+                    "date": 1665562796538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Http\\Controllers\\Api\\User\\UserLoginController;\n+use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n"
+                },
+                {
+                    "date": 1665563659128,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n+\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n"
+                },
+                {
+                    "date": 1665564091140,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n-\n+use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n+use App\\Http\\Controllers\\Api\\v2\\User\\Register\\UserRegisterController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n"
+                },
+                {
+                    "date": 1665566754594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n-use App\\Http\\Controllers\\Api\\v2\\User\\Register\\UserRegisterController;\n+use App\\Http\\Controllers\\Api\\User\\Register\\UserRegisterController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n \n /*\n@@ -19,9 +19,8 @@\n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n Route::post('/resetPassword', [UserResetPasswordController::class, 'reset']);\n-Route::post('/verify-email', [VerifyEmailController::class, 'verifyEmail']);\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665566759788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <?php\n \n+use App\\Http\\Controllers\\Api\\User\\Auth\\UserResetPasswordController;\n use App\\Http\\Controllers\\Api\\User\\Login\\UserLoginController;\n use App\\Http\\Controllers\\Api\\User\\Register\\UserRegisterController;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Route;\n"
+                },
+                {
+                    "date": 1665566841827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::post('/resetPassword', [UserResetPasswordController::class, 'reset']);\n+Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->password.reset;\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665567051944,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->password.reset;\n+Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'['as' => 'organization']])->as('password.reset');\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665567125918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'['as' => 'organization']])->as('password.reset');\n+Route::post('/resetPassword', [UserResetPasswordController::class, 'reset']);\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665567184776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::post('/resetPassword', [UserResetPasswordController::class, 'reset']);\n+Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->name(['as' => 'organization']);\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665567193093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->name(['as' => 'organization']);\n+Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->name('password.reset');\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665567297518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->name('password.reset');\n+Route::get('/resetPassword', [UserResetPasswordController::class, 'reset'])->name('password.reset');\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                },
+                {
+                    "date": 1665567344133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n Route::post('/login', [UserLoginController::class, 'login']);\n Route::post('/register', [UserRegisterController::class, 'register']);\n Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\n-Route::get('/resetPassword', [UserResetPasswordController::class, 'reset'])->name('password.reset');\n+Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->name('');\n \n \n Route::middleware('auth:sanctum')->get('/user', function (Request $request) {\n     return $request->user();\n"
+                }
+            ],
+            "date": 1665561221340,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Support\\Facades\\Route;\n\n/*\n|--------------------------------------------------------------------------\n| API Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register API routes for your application. These\n| routes are loaded by the RouteServiceProvider within a group which\n| is assigned the \"api\" middleware group. Enjoy building your API!\n|\n*/\n\nRoute::post('/login', [UserLoginController::class, 'login']);\nRoute::post('/register', [UserRegisterController::class, 'register']);\nRoute::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);\nRoute::post('/resetPassword', [UserResetPasswordController::class, 'reset']);\nRoute::post('/verify-email', [VerifyEmailController::class, 'verifyEmail']);\n\n\nRoute::middleware('auth:sanctum')->get('/user', function (Request $request) {\n    return $request->user();\n});\n"
+        }
+    ]
+}

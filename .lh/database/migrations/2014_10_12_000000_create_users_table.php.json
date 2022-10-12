@@ -1,0 +1,54 @@
+{
+    "sourceFile": "database/migrations/2014_10_12_000000_create_users_table.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1665516599112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665516607202,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,8 @@\n             $table->string('name');\n             $table->string('email')->unique();\n             $table->timestamp('email_verified_at')->nullable();\n             $table->string('password');\n-            $table->string('token', 32)->unique();\n             $table->rememberToken();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1665564811032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n             $table->string('name');\n             $table->string('email')->unique();\n             $table->timestamp('email_verified_at')->nullable();\n             $table->string('password');\n+            \n             $table->rememberToken();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1665564840093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,14 @@\n             $table->string('name');\n             $table->string('email')->unique();\n             $table->timestamp('email_verified_at')->nullable();\n             $table->string('password');\n-            \n+            $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n+\n+            $table->foreign('user_id')->references('id')->on('users');\n+\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1665564846012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n             $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n \n-            $table->foreign('user_id')->references('id')->on('users');\n+            $table->foreign('role_id')->references('id')->on('roles');\n \n         });\n     }\n \n"
+                },
+                {
+                    "date": 1665565624274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n             $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n \n-            $table->foreign('role_id')->references('id')->on('roles');\n+            $table->foreign('id')->references('id')->on('roles');\n \n         });\n     }\n \n"
+                },
+                {
+                    "date": 1665566011747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n             $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n \n-            $table->foreign('id')->references('id')->on('roles');\n+            $table->foreign('role_id')->references('role_id')->on('roles');\n \n         });\n     }\n \n"
+                },
+                {
+                    "date": 1665566234539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,13 +18,12 @@\n             $table->string('name');\n             $table->string('email')->unique();\n             $table->timestamp('email_verified_at')->nullable();\n             $table->string('password');\n-            $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n \n-            $table->foreign('role_id')->references('role_id')->on('roles');\n+            $table->foreign('role_id')->references('id')->on('roles');\n \n         });\n     }\n \n"
+                },
+                {
+                    "date": 1665566298601,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n             $table->string('name');\n             $table->string('email')->unique();\n             $table->timestamp('email_verified_at')->nullable();\n             $table->string('password');\n+            $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n \n             $table->foreign('role_id')->references('id')->on('roles');\n"
+                },
+                {
+                    "date": 1665566306281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,14 +18,10 @@\n             $table->string('name');\n             $table->string('email')->unique();\n             $table->timestamp('email_verified_at')->nullable();\n             $table->string('password');\n-            $table->unsignedBigInteger('role_id');\n             $table->rememberToken();\n             $table->timestamps();\n-\n-            $table->foreign('role_id')->references('id')->on('roles');\n-\n         });\n     }\n \n     /**\n"
+                }
+            ],
+            "date": 1665516599112,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('users', function (Blueprint $table) {\n            $table->id();\n            $table->string('name');\n            $table->string('email')->unique();\n            $table->timestamp('email_verified_at')->nullable();\n            $table->string('password');\n            $table->string('token', 32)->unique();\n            $table->rememberToken();\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('users');\n    }\n};\n"
+        }
+    ]
+}

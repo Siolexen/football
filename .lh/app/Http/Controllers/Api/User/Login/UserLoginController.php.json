@@ -1,0 +1,146 @@
+{
+    "sourceFile": "app/Http/Controllers/Api/User/Login/UserLoginController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 32,
+            "patches": [
+                {
+                    "date": 1665562937108,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665562951318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-namespace App\\Http\\Controllers\\Api\\v2\\User\\Login;\n+namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n use App\\Enums\\User\\CredentialType;\n use App\\Enums\\User\\LoginStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n"
+                },
+                {
+                    "date": 1665562971443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,8 @@\n use App\\Enums\\User\\CredentialType;\n use App\\Enums\\User\\LoginStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\Login\\LoginRequest;\n-use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n use Exception;\n"
+                },
+                {
+                    "date": 1665562976959,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,11 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n-use App\\Enums\\User\\CredentialType;\n-use App\\Enums\\User\\LoginStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\Login\\LoginRequest;\n+use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n use Exception;\n"
+                },
+                {
+                    "date": 1665563027047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,8 @@\n      *\n      * @param LoginRequest $request\n      * @param UserLoginService $userLoginService\n      * @param UserResourceService $userResourceService\n-     * @param UserVerifyService $userVerifyService\n      *\n      * @return Response\n      *\n      */\n"
+                },
+                {
+                    "date": 1665563035506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n      *\n      * @return Response\n      *\n      */\n-    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(LoginReques $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n"
+                },
+                {
+                    "date": 1665563042759,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,10 @@\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n use App\\Http\\Controllers\\Api\\BaseController;\n-use App\\Http\\Requests\\User\\Login\\LoginRequest;\n+use App\\Http\\Requests\\User\\LoginRequest;\n+use App\\Http\\Requests\\User\\LoginRequest as UserLoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n@@ -21,9 +22,9 @@\n      *\n      * @return Response\n      *\n      */\n-    public function login(LoginReques $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(UserLoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n"
+                },
+                {
+                    "date": 1665563054112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\LoginRequest;\n-use App\\Http\\Requests\\User\\LoginRequest as UserLoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n@@ -22,9 +21,9 @@\n      *\n      * @return Response\n      *\n      */\n-    public function login(UserLoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n"
+                },
+                {
+                    "date": 1665563163399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n use App\\Http\\Controllers\\Api\\BaseController;\n-use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n"
+                },
+                {
+                    "date": 1665563176392,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n-\n+App\\Http\\Requests\\User\\LoginRequest\n use App\\Http\\Controllers\\Api\\BaseController;\n+use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n"
+                },
+                {
+                    "date": 1665563306580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,11 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n-App\\Http\\Requests\\User\\LoginRequest\n+\n use App\\Http\\Controllers\\Api\\BaseController;\n-use App\\Http\\Requests\\User\\LoginRequest;\n+use App\\Http\\Requests\\User\\Login\\LoginRequest;\n+use App\\Http\\Requests\\User\\LoginRequest as UserLoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n@@ -21,9 +22,9 @@\n      *\n      * @return Response\n      *\n      */\n-    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(UserLoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n"
+                },
+                {
+                    "date": 1665563325377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n+use App\\Enums\\User\\LoginStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\Login\\LoginRequest;\n-use App\\Http\\Requests\\User\\LoginRequest as UserLoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n@@ -18,13 +18,14 @@\n      *\n      * @param LoginRequest $request\n      * @param UserLoginService $userLoginService\n      * @param UserResourceService $userResourceService\n+     * @param UserVerifyService $userVerifyService\n      *\n      * @return Response\n      *\n      */\n-    public function login(UserLoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n"
+                },
+                {
+                    "date": 1665563331895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n-\n-use App\\Enums\\User\\LoginStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n-use App\\Http\\Requests\\User\\Login\\LoginRequest;\n+use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n@@ -18,9 +16,8 @@\n      *\n      * @param LoginRequest $request\n      * @param UserLoginService $userLoginService\n      * @param UserResourceService $userResourceService\n-     * @param UserVerifyService $userVerifyService\n      *\n      * @return Response\n      *\n      */\n"
+                },
+                {
+                    "date": 1665563511835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,15 @@\n \n             if (is_null($user))\n                 return $this->sendError(__('login.invalid credentials'), 401);\n \n+                $credentials = $request->only('email', 'password');\n+\n+                if (!Auth::guard('user')->attempt($credentials)) {\n+    \n+                    return $this->sendError(__('login.invalid credentials'), 403);\n+                }\n+                \n             return $this->sendResponse([\n                 'access_token' => $userLoginService->createToken($user),\n                 'token_type' => 'Bearer',\n                 'emailVerified' => $user->hasVerifiedEmail(),\n"
+                },
+                {
+                    "date": 1665563532963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,15 +28,15 @@\n \n             if (is_null($user))\n                 return $this->sendError(__('login.invalid credentials'), 401);\n \n-                $credentials = $request->only('email', 'password');\n+            $credentials = $request->only('email', 'password');\n \n-                if (!Auth::guard('user')->attempt($credentials)) {\n-    \n-                    return $this->sendError(__('login.invalid credentials'), 403);\n-                }\n-                \n+            if (!$user->attempt($credentials)) {\n+\n+                return $this->sendError(__('login.invalid credentials'), 403);\n+            }\n+\n             return $this->sendResponse([\n                 'access_token' => $userLoginService->createToken($user),\n                 'token_type' => 'Bearer',\n                 'emailVerified' => $user->hasVerifiedEmail(),\n"
+                },
+                {
+                    "date": 1665563545391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,10 +25,10 @@\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n-            if (is_null($user))\n-                return $this->sendError(__('login.invalid credentials'), 401);\n+            // if (is_null($user))\n+            //     return $this->sendError(__('login.invalid credentials'), 401);\n \n             $credentials = $request->only('email', 'password');\n \n             if (!$user->attempt($credentials)) {\n"
+                },
+                {
+                    "date": 1665563595516,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n use App\\Http\\Controllers\\Api\\BaseController;\n-use App\\Http\\Requests\\User\\LoginRequest;\n+// use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n"
+                },
+                {
+                    "date": 1665563676222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n use App\\Http\\Controllers\\Api\\BaseController;\n+use App\\Http\\Requests\\User\\LoginRequest;\n // use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n@@ -20,9 +21,9 @@\n      *\n      * @return Response\n      *\n      */\n-    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n"
+                },
+                {
+                    "date": 1665563690610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,11 @@\n      *\n      * @return Response\n      *\n      */\n-    public function login(UserLoginService $userLoginService, UserResourceService $userResourceService)\n+    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n+        dd(131);\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n             // if (is_null($user))\n"
+                },
+                {
+                    "date": 1665563754738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,8 @@\n      *\n      */\n     public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n-        dd(131);\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n             // if (is_null($user))\n"
+                },
+                {
+                    "date": 1665563804480,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,10 +26,10 @@\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n-            // if (is_null($user))\n-            //     return $this->sendError(__('login.invalid credentials'), 401);\n+            if (is_null($user))\n+                return $this->sendError(__('login.invalid credentials'), 401);\n \n             $credentials = $request->only('email', 'password');\n \n             if (!$user->attempt($credentials)) {\n"
+                },
+                {
+                    "date": 1665564279457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\LoginRequest;\n-// use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n"
+                },
+                {
+                    "date": 1665564291762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Login;\n+\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n@@ -43,26 +44,6 @@\n             ]);\n         } catch (Exception $error) {\n             return $this->sendError(__('login.invalid credentials'), 403);\n         }\n-    \n-        // $user = $userResourceService->getWithEmail($request->email);\n-\n-        // /* User not exist. Return invalid credentials. */\n-        // if (is_null($user))\n-        //     return $this->sendError(__('login.invalid credentials'), 401);\n-\n-        // try {\n-        //     if (!$userVerifyService->verifyWithUserCredentials($request->validated(), $user)) {\n-        //         return $this->sendError(__('login.invalid credentials'), 401);\n-        //     }\n-        // } catch (Exception $error) {\n-        //     return $this->sendError(__('login.invalid credentials'), 401);\n-        // }\n-\n-        // return $this->sendResponse([\n-        //     'access_token' => $userLoginService->createToken($user),\n-        //     'token_type' => 'Bearer',\n-        //     'emailVerified' => $user->hasVerifiedEmail(),\n-        // ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1665564425217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,11 +31,12 @@\n                 return $this->sendError(__('login.invalid credentials'), 401);\n \n             $credentials = $request->only('email', 'password');\n \n-            if (!$user->attempt($credentials)) {\n-\n-                return $this->sendError(__('login.invalid credentials'), 403);\n+            if (! $user || ! Hash::check($request->password, $user->password)) {\n+                throw ValidationException::withMessages([\n+                    'email' => ['The provided credentials are incorrect.'],\n+                ]);\n             }\n \n             return $this->sendResponse([\n                 'access_token' => $userLoginService->createToken($user),\n"
+                },
+                {
+                    "date": 1665564443321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,10 @@\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n use Exception;\n+use Illuminate\\Support\\Facades\\Hash;\n+use Illuminate\\Validation\\ValidationException;\n \n class UserLoginController extends BaseController\n {\n     /**\n"
+                },
+                {
+                    "date": 1665565159722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n namespace App\\Http\\Controllers\\Api\\User\\Login;\n \n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\LoginRequest;\n-use App\\Jobs\\User\\SendVerifyCode;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n use App\\Services\\User\\UserVerifyService;\n use Exception;\n"
+                },
+                {
+                    "date": 1665565174682,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,8 @@\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\LoginRequest;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserResourceService;\n-use App\\Services\\User\\UserVerifyService;\n use Exception;\n use Illuminate\\Support\\Facades\\Hash;\n use Illuminate\\Validation\\ValidationException;\n \n@@ -30,10 +29,8 @@\n \n             if (is_null($user))\n                 return $this->sendError(__('login.invalid credentials'), 401);\n \n-            $credentials = $request->only('email', 'password');\n-\n             if (! $user || ! Hash::check($request->password, $user->password)) {\n                 throw ValidationException::withMessages([\n                     'email' => ['The provided credentials are incorrect.'],\n                 ]);\n"
+                },
+                {
+                    "date": 1665565181494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,11 +26,8 @@\n     {\n         try {\n             $user = $userResourceService->getWithEmail($request->email);\n \n-            if (is_null($user))\n-                return $this->sendError(__('login.invalid credentials'), 401);\n-\n             if (! $user || ! Hash::check($request->password, $user->password)) {\n                 throw ValidationException::withMessages([\n                     'email' => ['The provided credentials are incorrect.'],\n                 ]);\n"
+                },
+                {
+                    "date": 1665565226918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n      *\n      */\n     public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n-        try {\n+\n             $user = $userResourceService->getWithEmail($request->email);\n \n             if (! $user || ! Hash::check($request->password, $user->password)) {\n                 throw ValidationException::withMessages([\n"
+                },
+                {
+                    "date": 1665565234719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,23 +23,19 @@\n      *\n      */\n     public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n+        $user = $userResourceService->getWithEmail($request->email);\n \n-            $user = $userResourceService->getWithEmail($request->email);\n-\n-            if (! $user || ! Hash::check($request->password, $user->password)) {\n-                throw ValidationException::withMessages([\n-                    'email' => ['The provided credentials are incorrect.'],\n-                ]);\n-            }\n-\n-            return $this->sendResponse([\n-                'access_token' => $userLoginService->createToken($user),\n-                'token_type' => 'Bearer',\n-                'emailVerified' => $user->hasVerifiedEmail(),\n+        if (! $user || ! Hash::check($request->password, $user->password)) {\n+            throw ValidationException::withMessages([\n+                'email' => ['The provided credentials are incorrect.'],\n             ]);\n-        } catch (Exception $error) {\n-            return $this->sendError(__('login.invalid credentials'), 403);\n         }\n+\n+        return $this->sendResponse([\n+            'access_token' => $userLoginService->createToken($user),\n+            'token_type' => 'Bearer',\n+            'emailVerified' => $user->hasVerifiedEmail(),\n+        ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1665565573125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n      *\n      */\n     public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n-        $user = $userResourceService->getWithEmail($request->email);\n+        $user = $userResourceService->getB($request->email);\n \n         if (! $user || ! Hash::check($request->password, $user->password)) {\n             throw ValidationException::withMessages([\n                 'email' => ['The provided credentials are incorrect.'],\n"
+                },
+                {
+                    "date": 1665565579958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n      *\n      */\n     public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n     {\n-        $user = $userResourceService->getB($request->email);\n+        $user = $userResourceService->getUserByEmail($request->email);\n \n         if (! $user || ! Hash::check($request->password, $user->password)) {\n             throw ValidationException::withMessages([\n                 'email' => ['The provided credentials are incorrect.'],\n"
+                },
+                {
+                    "date": 1665567456770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,8 +34,7 @@\n \n         return $this->sendResponse([\n             'access_token' => $userLoginService->createToken($user),\n             'token_type' => 'Bearer',\n-            'emailVerified' => $user->hasVerifiedEmail(),\n         ]);\n     }\n }\n"
+                }
+            ],
+            "date": 1665562937108,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers\\Api\\v2\\User\\Login;\n\nuse App\\Enums\\User\\CredentialType;\nuse App\\Enums\\User\\LoginStatus;\nuse App\\Http\\Controllers\\Api\\BaseController;\nuse App\\Http\\Requests\\User\\Login\\LoginRequest;\nuse App\\Jobs\\User\\SendVerifyCode;\nuse App\\Services\\User\\UserLoginService;\nuse App\\Services\\User\\UserResourceService;\nuse App\\Services\\User\\UserVerifyService;\nuse Exception;\n\nclass UserLoginController extends BaseController\n{\n    /**\n     * Try login user to admin.\n     *\n     * @param LoginRequest $request\n     * @param UserLoginService $userLoginService\n     * @param UserResourceService $userResourceService\n     * @param UserVerifyService $userVerifyService\n     *\n     * @return Response\n     *\n     */\n    public function login(LoginRequest $request, UserLoginService $userLoginService, UserResourceService $userResourceService)\n    {\n        try {\n            $user = $userResourceService->getWithEmail($request->email);\n\n            if (is_null($user))\n                return $this->sendError(__('login.invalid credentials'), 401);\n\n            return $this->sendResponse([\n                'access_token' => $userLoginService->createToken($user),\n                'token_type' => 'Bearer',\n                'emailVerified' => $user->hasVerifiedEmail(),\n            ]);\n        } catch (Exception $error) {\n            return $this->sendError(__('login.invalid credentials'), 403);\n        }\n    \n        // $user = $userResourceService->getWithEmail($request->email);\n\n        // /* User not exist. Return invalid credentials. */\n        // if (is_null($user))\n        //     return $this->sendError(__('login.invalid credentials'), 401);\n\n        // try {\n        //     if (!$userVerifyService->verifyWithUserCredentials($request->validated(), $user)) {\n        //         return $this->sendError(__('login.invalid credentials'), 401);\n        //     }\n        // } catch (Exception $error) {\n        //     return $this->sendError(__('login.invalid credentials'), 401);\n        // }\n\n        // return $this->sendResponse([\n        //     'access_token' => $userLoginService->createToken($user),\n        //     'token_type' => 'Bearer',\n        //     'emailVerified' => $user->hasVerifiedEmail(),\n        // ]);\n    }\n}\n"
+        }
+    ]
+}

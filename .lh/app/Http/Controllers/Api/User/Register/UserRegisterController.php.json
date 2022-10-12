@@ -1,0 +1,66 @@
+{
+    "sourceFile": "app/Http/Controllers/Api/User/Register/UserRegisterController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 12,
+            "patches": [
+                {
+                    "date": 1665563851563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665563865893,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n namespace App\\Http\\Controllers\\Api\\v2\\User\\Register;\n \n use App\\Enums\\User\\RegisterStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n-use App\\Http\\Requests\\v2\\User\\Register\\RegisterPostRequest;\n+use App\\Http\\Requests\\User\\RegisterPostRequest;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserRegisterService;\n use App\\Services\\User\\UserResourceService;\n \n"
+                },
+                {
+                    "date": 1665563955801,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,8 @@\n \n         if ($user) {\n             return $this->sendResponse([\n                 'email' => $request->email,\n-                'status' => RegisterStatus::EmailExist->value,\n             ]);\n         }\n \n         /**\n"
+                },
+                {
+                    "date": 1665563961643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,8 @@\n         if (isset($request->credentialType)) {\n             if ($user = $userRegisterService->register($request->validated())) {\n                 return $this->sendResponse([\n                     'email' => $request->email,\n-                    'status' => RegisterStatus::VerifyEmail->value,\n                     'access_token' => $userLoginService->createToken($user),\n                     'token_type' => 'Bearer',\n                     'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n                 ]);\n"
+                },
+                {
+                    "date": 1665563975972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,18 +47,18 @@\n         /**\n          * Check Request include credentialType\n          * If credentialType exist, exist also firstname and surname.\n          */\n-        if (isset($request->credentialType)) {\n+       \n             if ($user = $userRegisterService->register($request->validated())) {\n                 return $this->sendResponse([\n                     'email' => $request->email,\n                     'access_token' => $userLoginService->createToken($user),\n                     'token_type' => 'Bearer',\n                     'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n                 ]);\n             }\n-        }\n+        \n         /**\n          * CredentialType not exist, not exist also firstname and surname.\n          * User can use email from request.\n          */\n"
+                },
+                {
+                    "date": 1665563981937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,32 +43,17 @@\n                 'email' => $request->email,\n             ]);\n         }\n \n-        /**\n-         * Check Request include credentialType\n-         * If credentialType exist, exist also firstname and surname.\n-         */\n-       \n             if ($user = $userRegisterService->register($request->validated())) {\n                 return $this->sendResponse([\n                     'email' => $request->email,\n                     'access_token' => $userLoginService->createToken($user),\n                     'token_type' => 'Bearer',\n                     'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n                 ]);\n             }\n-        \n-        /**\n-         * CredentialType not exist, not exist also firstname and surname.\n-         * User can use email from request.\n-         */\n-        else {\n-            return $this->sendResponse([\n-                'email' => $request->email,\n-                'status' => RegisterStatus::EmailAvailable->value,\n-            ]);\n-        }\n+    \n \n         return $this->sendError(__('error.400'), 400);\n     }\n }\n"
+                },
+                {
+                    "date": 1665564124141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-namespace App\\Http\\Controllers\\Api\\v2\\User\\Register;\n+namespace App\\Http\\Controllers\\Api\\User\\Register;\n \n use App\\Enums\\User\\RegisterStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\RegisterPostRequest;\n@@ -43,16 +43,16 @@\n                 'email' => $request->email,\n             ]);\n         }\n \n-            if ($user = $userRegisterService->register($request->validated())) {\n-                return $this->sendResponse([\n-                    'email' => $request->email,\n-                    'access_token' => $userLoginService->createToken($user),\n-                    'token_type' => 'Bearer',\n-                    'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n-                ]);\n-            }\n+        if ($user = $userRegisterService->register($request->validated())) {\n+            return $this->sendResponse([\n+                'email' => $request->email,\n+                'access_token' => $userLoginService->createToken($user),\n+                'token_type' => 'Bearer',\n+                'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n+            ]);\n+        }\n     \n \n         return $this->sendError(__('error.400'), 400);\n     }\n"
+                },
+                {
+                    "date": 1665564222465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n                 'token_type' => 'Bearer',\n                 'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n             ]);\n         }\n-    \n \n+\n         return $this->sendError(__('error.400'), 400);\n     }\n }\n"
+                },
+                {
+                    "date": 1665564229177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n <?php\n \n namespace App\\Http\\Controllers\\Api\\User\\Register;\n \n-use App\\Enums\\User\\RegisterStatus;\n use App\\Http\\Controllers\\Api\\BaseController;\n use App\\Http\\Requests\\User\\RegisterPostRequest;\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserRegisterService;\n@@ -52,8 +51,7 @@\n                 'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n             ]);\n         }\n \n-\n         return $this->sendError(__('error.400'), 400);\n     }\n }\n"
+                },
+                {
+                    "date": 1665564236632,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,12 +7,8 @@\n use App\\Services\\User\\UserLoginService;\n use App\\Services\\User\\UserRegisterService;\n use App\\Services\\User\\UserResourceService;\n \n-/**\n- * Class UserRegisterController\n- * @package App\\Http\\Controllers\\Api\\v2\\User\\Register\n- */\n class UserRegisterController extends BaseController\n {\n     /**\n      * UserRegisterController constructor.\n"
+                },
+                {
+                    "date": 1665565257008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,8 +35,9 @@\n \n         if ($user) {\n             return $this->sendResponse([\n                 'email' => $request->email,\n+                \n             ]);\n         }\n \n         if ($user = $userRegisterService->register($request->validated())) {\n"
+                },
+                {
+                    "date": 1665565262170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,10 +34,9 @@\n         $user = $userResourceService->getWithEmail($request->email);\n \n         if ($user) {\n             return $this->sendResponse([\n-                'email' => $request->email,\n-                \n+                'email' => $request->email\n             ]);\n         }\n \n         if ($user = $userRegisterService->register($request->validated())) {\n"
+                },
+                {
+                    "date": 1665565440453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n      *\n      */\n     protected function register(RegisterPostRequest $request, UserRegisterService $userRegisterService, UserResourceService $userResourceService, UserLoginService $userLoginService)\n     {\n-        $user = $userResourceService->getWithEmail($request->email);\n+        $user = $userResourceService->getUserByEmail($request->email);\n \n         if ($user) {\n             return $this->sendResponse([\n                 'email' => $request->email\n"
+                }
+            ],
+            "date": 1665563851563,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers\\Api\\v2\\User\\Register;\n\nuse App\\Enums\\User\\RegisterStatus;\nuse App\\Http\\Controllers\\Api\\BaseController;\nuse App\\Http\\Requests\\v2\\User\\Register\\RegisterPostRequest;\nuse App\\Services\\User\\UserLoginService;\nuse App\\Services\\User\\UserRegisterService;\nuse App\\Services\\User\\UserResourceService;\n\n/**\n * Class UserRegisterController\n * @package App\\Http\\Controllers\\Api\\v2\\User\\Register\n */\nclass UserRegisterController extends BaseController\n{\n    /**\n     * UserRegisterController constructor.\n     */\n    public function __construct()\n    {\n        $this->middleware('guest');\n    }\n\n    /**\n     * Register User.\n     *\n     * @param RegisterPostRequest $request\n     * @param UserRegisterService $userRegisterService\n     * @param UserResourceService $userResourceService\n     * @param UserLoginService $userLoginService\n     *\n     * @return Response\n     *\n     */\n    protected function register(RegisterPostRequest $request, UserRegisterService $userRegisterService, UserResourceService $userResourceService, UserLoginService $userLoginService)\n    {\n        $user = $userResourceService->getWithEmail($request->email);\n\n        if ($user) {\n            return $this->sendResponse([\n                'email' => $request->email,\n                'status' => RegisterStatus::EmailExist->value,\n            ]);\n        }\n\n        /**\n         * Check Request include credentialType\n         * If credentialType exist, exist also firstname and surname.\n         */\n        if (isset($request->credentialType)) {\n            if ($user = $userRegisterService->register($request->validated())) {\n                return $this->sendResponse([\n                    'email' => $request->email,\n                    'status' => RegisterStatus::VerifyEmail->value,\n                    'access_token' => $userLoginService->createToken($user),\n                    'token_type' => 'Bearer',\n                    'messages' => __('login.verification-link-has-been-sent-to-your-email-address')\n                ]);\n            }\n        }\n        /**\n         * CredentialType not exist, not exist also firstname and surname.\n         * User can use email from request.\n         */\n        else {\n            return $this->sendResponse([\n                'email' => $request->email,\n                'status' => RegisterStatus::EmailAvailable->value,\n            ]);\n        }\n\n        return $this->sendError(__('error.400'), 400);\n    }\n}\n"
+        }
+    ]
+}

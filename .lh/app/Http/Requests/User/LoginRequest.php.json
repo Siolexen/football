@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Http/Requests/User/LoginRequest.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1665563742114,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1665563742114,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Requests\\User;\nuse Illuminate\\Foundation\\Http\\FormRequest;\n\nclass LoginRequest extends FormRequest\n{\n    /**\n     * Get the validation rules that apply to the request.\n     *\n     * @return array\n     */\n    public function rules()\n    {\n        return [\n            'email'     => 'email|required',\n            'password'  => 'string|required',\n        ];\n    }\n}\n"
+        }
+    ]
+}

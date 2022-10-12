@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/migrations/2022_10_11_193742_create_role_user_table.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1665517074669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1665517082199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,8 +30,8 @@\n      */\n     public function down()\n     {\n         Schema::table('role_user', function (Blueprint $table) {\n-            //\n+            /Schema::dropIfExists('attendee_role');/\n         });\n     }\n };\n"
+                },
+                {
+                    "date": 1665517088328,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,8 +30,8 @@\n      */\n     public function down()\n     {\n         Schema::table('role_user', function (Blueprint $table) {\n-            /Schema::dropIfExists('attendee_role');/\n+            Schema::dropIfExists('role_user');\n         });\n     }\n };\n"
+                },
+                {
+                    "date": 1665517096541,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,12 +13,12 @@\n      */\n     public function up()\n     {\n         Schema::table('role_user', function (Blueprint $table) {\n-            $table->unsignedBigInteger('attendee_id');\n+            $table->unsignedBigInteger('user_id');\n             $table->unsignedBigInteger('role_id');\n \n-            $table->foreign('attendee_id')->references('id')->on('attendees');\n+            $table->foreign('attendee_id')->references('id')->on('user');\n             $table->foreign('role_id')->references('id')->on('roles');\n             $table->unique(['attendee_id', 'role_id']);\n         });\n     }\n"
+                },
+                {
+                    "date": 1665517105781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n         Schema::table('role_user', function (Blueprint $table) {\n             $table->unsignedBigInteger('user_id');\n             $table->unsignedBigInteger('role_id');\n \n-            $table->foreign('attendee_id')->references('id')->on('user');\n+            $table->foreign('user_id')->references('id')->on('users');\n             $table->foreign('role_id')->references('id')->on('roles');\n             $table->unique(['attendee_id', 'role_id']);\n         });\n     }\n"
+                },
+                {
+                    "date": 1665517356757,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,15 +12,15 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::table('role_user', function (Blueprint $table) {\n+        Schema::create('role_user', function (Blueprint $table) {\n             $table->unsignedBigInteger('user_id');\n             $table->unsignedBigInteger('role_id');\n \n             $table->foreign('user_id')->references('id')->on('users');\n             $table->foreign('role_id')->references('id')->on('roles');\n-            $table->unique(['attendee_id', 'role_id']);\n+            $table->unique(['user_id', 'role_id']);\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1665517362532,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,8 @@\n      * @return void\n      */\n     public function down()\n     {\n-        Schema::table('role_user', function (Blueprint $table) {\n             Schema::dropIfExists('role_user');\n         });\n     }\n };\n"
+                }
+            ],
+            "date": 1665517074669,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::table('role_user', function (Blueprint $table) {\n            $table->unsignedBigInteger('attendee_id');\n            $table->unsignedBigInteger('role_id');\n\n            $table->foreign('attendee_id')->references('id')->on('attendees');\n            $table->foreign('role_id')->references('id')->on('roles');\n            $table->unique(['attendee_id', 'role_id']);\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::table('role_user', function (Blueprint $table) {\n            //\n        });\n    }\n};\n"
+        }
+    ]
+}
