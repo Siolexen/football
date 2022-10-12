@@ -30,7 +30,6 @@ class UserRegisterService
         $data['role_id'] = $role->id; //todo
 
         $user = $this->userRepository->create($data);
-
         event(new Registered($user));
         return $user;
     }

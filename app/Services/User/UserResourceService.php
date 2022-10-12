@@ -21,4 +21,26 @@ class UserResourceService
     {
         return $this->userRepository->getUserByEmail($email);
     }
+
+    /**
+     * @param string $userUuid
+     * @return array|mixed
+     */
+    public function getUserByUuid(string $userUuid): mixed
+    {
+        return $this->userRepository->getUserByUuid($userUuid);
+    }
+
+    /**
+     * Get Users by specific options.
+     *
+     * @param array $options
+     *
+     * @return mixed
+     *
+     */
+    public function getAllByOptions(array $options = [])
+    {
+        return $this->userRepository->getAllByOptions($options);
+    }
 }

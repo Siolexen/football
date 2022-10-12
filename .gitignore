@@ -14,3 +14,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+.lh*
+.lh/app/Policies/User/UserPolicy.php.json
+.gitignore
+.lh/routes/api.php.json

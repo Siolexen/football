@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\Post\PostController;
+use App\Http\Controllers\Api\Admin\Post\PostController as AdminPostController;
+use App\Http\Controllers\Api\Admin\User\UserController;
 use App\Http\Controllers\Api\User\Auth\UserResetPasswordController;
 use App\Http\Controllers\Api\User\Login\UserLoginController;
 use App\Http\Controllers\Api\User\Register\UserRegisterController;
@@ -21,8 +24,16 @@ Route::post('/login', [UserLoginController::class, 'login']);
 Route::post('/register', [UserRegisterController::class, 'register']);
 Route::post('/forgotPassword', [UserResetPasswordController::class, 'forgotPassword']);
 Route::post('/resetPassword', [UserResetPasswordController::class, 'reset'])->name('password.reset');
-
+Route::post('/verify-email', [VerifyEmailController::class, 'verifyEmail'])->name('verification.verify');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::apiResource('/post', PostController::class)->only('index', 'show');
+    Route::prefix('admin')->group(function () {
+        Route::apiResource('/post', AdminPostController::class);
+        Route::apiResource('/user', UserController::class);
+    });
 });

@@ -1,27 +1,15 @@
 <?php
 
-namespace App\Policies\User;
+namespace App\Policies\Post;
 
+use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class PostPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine the administrator role.
-     *
-     * @param  User  $user
-     * @return mixed
-     */
-    public function before(User $user)
-    {
-        if ($user->role->name == Role::ROLE_ADMIN) {
-            return true;
-        }
-    }
 
     /**
      * Determine whether the user can view any models.
@@ -31,19 +19,19 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  User  $user
-     * @param  User  $model
+     * @param  Post  $post
      * @return mixed
      */
-    public function view(User $user, User $model)
+    public function view(User $user, Post $post)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -54,30 +42,30 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return in_array($user->role->name, [Role::ROLE_ADMIN, Role::ROLE_EDITOR]);
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  User  $user
-     * @param  User  $model
+     * @param  User $user
+     * @param  Post $post
      * @return mixed
      */
-    public function update(User $user, User $model)
+    public function update(User $user, Post $post)
     {
-        return false;
+        return in_array($user->role->name, [Role::ROLE_ADMIN, Role::ROLE_EDITOR]);
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  User  $user
-     * @param  User  $model
+     * @param  Post $post
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, Post $post)
     {
-        return false;
+        return in_array($user->role->name, [Role::ROLE_ADMIN, Role::ROLE_EDITOR]);
     }
 }

@@ -13,7 +13,32 @@ class UserRepository
      */
     public function getUserByEmail(string $email): mixed
     {
-        return User::where('email', '=', $email)->first();
+        return User::where('email', $email)->first();
+    }
+
+    /**
+     * @param $userUuid
+     * @return mixed
+     */
+    public function getUserByUuid(string $userUuid): mixed
+    {
+        return User::where('uuid', $userUuid)->first();
+    }
+
+    /**
+     * Get Posts by specific options.
+     *
+     * @param array $options
+     *
+     * @return mixed
+     *
+     */
+    public function getAllByOptions(array $options = []): mixed
+    {
+        $query = User::query();
+
+        //PAGINATION
+        return $query->paginate($options['perPage'] ?? 10);
     }
 
     /**
@@ -36,6 +61,7 @@ class UserRepository
         return $user;
     }
 
+
     /**
      * Update $user model with specific data.
      *
@@ -47,16 +73,39 @@ class UserRepository
      */
     public function update(array $data, User $user): User
     {
-        if (isset($data['email'])) $user->email = $data['email'];
+        if (array_key_exists('name', $data)) {
+            $user->name = $data['name'];
+        }
 
-        if (array_key_exists('password', $data) && !empty($data['password']))
+        if (array_key_exists('email', $data)) {
+            $user->email = $data['email'];
+        }
+
+        if (array_key_exists('password', $data)) {
             $user->password = Hash::make($data['password']);
+        }
 
-        if (isset($data['role_id'])) $user->role_id = $data['role_id'];
+        if (array_key_exists('role_id', $data)) {
+            $user->role_id = $data['role_id'];
+        }
 
         if ($user->isDirty())
             $user->save();
 
         return $user;
+    }
+
+    /**
+     * Delete User model.
+     *
+     * @param User $user
+     *
+     * @return bool
+     *
+     */
+    public function delete(User $user): bool
+    {
+        $user->delete();
+        return true;
     }
 }
