@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Events\CreateUser;
 use App\Models\User;
 use App\Repositories\User\UserRepository;
 
@@ -15,7 +16,7 @@ class UserService
     }
 
     /**
-     * Create $user model.
+     * Create user model.
      *
      * @param array $data
      *
@@ -24,11 +25,15 @@ class UserService
      */
     public function create(array $data): User
     {
-        return $this->userRepository->create($data);
+        $user = $this->userRepository->create($data);
+
+        event(new CreateUser($user));
+
+        return $user;
     }
 
     /**
-     * Update $user model.
+     * Update user model.
      *
      * @param array $data
      * @param User $user
@@ -42,7 +47,7 @@ class UserService
     }
 
     /**
-     * Delete $user model.
+     * Delete user model.
      *
      * @param User $user
      *

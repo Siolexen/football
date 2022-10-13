@@ -26,10 +26,11 @@ class UserRegisterService
      */
     public function register(array $data): User
     {
-        $role = Role::find(1);
-        $data['role_id'] = $role->id; //todo
+        $role = Role::where('name', Role::ROLE_USER)->first();
+        $data['role_id'] = $role->id;
 
         $user = $this->userRepository->create($data);
+       
         event(new Registered($user));
         return $user;
     }

@@ -22,6 +22,7 @@ class PostCollection extends ResourceCollection
                 'slug' => $data->slug,
                 'title' => $data->title,
                 'body' => $data->body,
+                'cover' => $data->cover,
             ];
         });
     }

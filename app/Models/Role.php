@@ -11,5 +11,5 @@ class Role extends Model
 
     const ROLE_ADMIN   = 'Admin';
     const ROLE_EDITOR  = 'Editor';
-    const ROLE_User = 'User';
+    const ROLE_USER = 'User';
 }

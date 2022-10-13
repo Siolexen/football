@@ -13,37 +13,91 @@ class PostService
     public function __construct()
     {
         $this->postRepository = new PostRepository;
-        // $this->postResourceService = new PostResourceService;
     }
 
-    public function create(array $data)
+    /**
+     * Create post model.
+     *
+     * @param array $data
+     * @param null $file
+     * 
+     * @return Post
+     * 
+     */
+    public function create(array $data, $file = null): Post
     {
         $data = $this->parseData($data);
-        $post = $this->postRepository->create($data);
+        $data = $this->storeFiles($data, $file);
 
-        // $this->storeFiles($post, $data);
-
-        return $post;
+        return $this->postRepository->create($data);
     }
 
-    public function update(array $data, Post $post)
+    /**
+     * Update post model.
+     *
+     * @param array $data
+     * @param Post $post
+     * @param null $file
+     * 
+     * @return Post
+     * 
+     */
+    public function update(array $data, Post $post, $file = null): Post
     {
         $data = $this->parseData($data);
-
-        // $this->storeFiles($post, $data);
+        $data = $this->storeFiles($data, $file);
 
         return $this->postRepository->update($data, $post);
     }
 
+    /**
+     * Delete post model.
+     *
+     * @param Post $post
+     * 
+     * 
+     */
     public function delete(Post $post)
     {
         return $this->postRepository->delete($post);
     }
 
+    /**
+     * Parse data
+     *
+     * @param mixed $data
+     * 
+     * @return array
+     * 
+     */
     private function parseData($data)
     {    
         $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($data['title'], '-');
+
+        return $data;
+    }
+
+    /**
+     * Store files
+     *
+     * @param mixed $data
+     * @param mixed $file
+     * 
+     * @return array
+     * 
+     */
+    public function storeFiles($data, $file)
+    {    
+        if (!$file) {
+            return $data;
+        }
+
+        $fileName = time() . '.' . $file->extension();
+
+        $file->move('images', $fileName); 
+
+        $data['cover'] = $fileName;
 
         return $data;
     }

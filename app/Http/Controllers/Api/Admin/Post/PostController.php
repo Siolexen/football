@@ -56,7 +56,7 @@ class PostController extends BaseController
         $this->authorize('create', [Post::class]);
 
         try {
-            $post = $postService->create($request->validated());
+            $post = $postService->create($request->validated(), $request->file('cover'));
         } catch (Exception $e) {
             return $this->sendError(__('error.400'), 400);
         }
@@ -106,7 +106,7 @@ class PostController extends BaseController
         $this->authorize('update', $post);
 
         try {
-            $post = $postService->update($request->validated(), $post);
+            $post = $postService->update($request->validated(), $post, $request->file('cover'));
         } catch (Exception $e) {
             return $this->sendError(__('error.400'), 400);
         }

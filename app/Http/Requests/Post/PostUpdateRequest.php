@@ -13,9 +13,9 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'cover' => 'nullable',
+            'title' => 'nullable|string',
+            'body' => 'nullable|string',
+            'cover' => 'nullable|file|mimes:jpg,jpeg,bmp,png',
         ];
     }
 }
