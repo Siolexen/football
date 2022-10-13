@@ -47,6 +47,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function role()
     {
-        return $this->hasOne(Role::class, 'id', 'role_id');
+        return $this->belongsTo(Role::class);
     }
 }

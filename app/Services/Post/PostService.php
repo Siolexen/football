@@ -72,7 +72,6 @@ class PostService
      */
     private function parseData($data)
     {    
-        $data['user_id'] = auth()->user()->id;
         $data['slug'] = Str::slug($data['title'], '-');
 
         return $data;
